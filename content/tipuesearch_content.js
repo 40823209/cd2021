@@ -1,1 +1,1 @@
-var tipuesearch = {"pages": [{'title': 'About', 'text': '\n', 'tags': '', 'url': 'About.html'}, {'title': 'Develop', 'text': '', 'tags': '', 'url': 'Develop.html'}]};
+var tipuesearch = {"pages": [{'title': '封面', 'text': '\n', 'tags': '', 'url': '封面.html'}, {'title': '每周進度', 'text': '', 'tags': '', 'url': '每周進度.html'}, {'title': '課後筆記', 'text': '', 'tags': '', 'url': '課後筆記.html'}, {'title': '個人Youtube頻道', 'text': '', 'tags': '', 'url': '個人Youtube頻道.html'}]};
