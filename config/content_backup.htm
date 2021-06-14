@@ -1,7 +1,7 @@
 <h1>about</h1>
 <p style="text-align: left;"><img alt="" height="225" src="/images/恐怖鯊.jpg" width="225"/><span style="color: #3366ff;">    </span></p>
 <h4>個人倉儲 : <a href="https://github.com/40823209/cd2021">https://github.com/40823209/cd2021</a></h4>
-<h4><span></span>------------------------------------------------------------</h4>
+<h4><span></span>-------------------------------------------------------test</h4>
 <h4>二人小組 : stage1-bg18</h4>
 <h5><span>主題:水球發射器</span></h5>
 <h5>40823209 顏沐恩 (<span><a href="https://40823209.github.io/cd2021/content/index.html">網站</a></span><span>/</span><a href="https://github.com/40823209/cd2021">倉儲</a>)</h5>
@@ -440,7 +440,6 @@ print(output)
 <h4>參考連結</h4>
 <h4>如何快速上字幕</h4>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/2SzDs_wO0-M" title="YouTube video player" width="560"></iframe></p>
-<h2>W16</h2>
 <h1>遇到的問題</h1>
 <h4><span>設計的過程中有遇到孔洞錯位的問題，就是上下的孔位並不是同心圓，</span></h4>
 <h4><span>導致後續的模擬非常卡， 這也讓我們查找了很久才發現。</span></h4>
@@ -542,4 +541,393 @@ print(output)
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/bx9sLFR4ylE" title="YouTube video player" width="560"></iframe></p>
 <h4><span></span></h4>
 <h4><span>W15 <span>如何註冊gogs和創建fossil倉儲</span></span></h4>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/KAyWced2qnU" title="YouTube video player" width="560"></iframe></p>
+<p><br/><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/KAyWced2qnU" title="YouTube video player" width="560"></iframe></p>
+<h1>W16</h1>
+<h4><strong>項目1 : </strong>Onshape 零組件繪製<span> </span></h4>
+<h4><span><img caption="false" height="273" src="/images/onshape機械手臂.PNG" width="550"/></span></h4>
+<p>onshape圖檔網址:</p>
+<p>https://cad.onshape.com/documents/f6fe65bd36ed575a987f4dc2/w/f4a754d42e1c19f590ba5efc/e/566768e77112610f3cd18829</p>
+<p>onshape圖檔連結:<a href="https://cad.onshape.com/documents/f6fe65bd36ed575a987f4dc2/w/f4a754d42e1c19f590ba5efc/e/566768e77112610f3cd18829">onshape個人線上繪圖連結</a></p>
+<p>機械手臂下載點:<a href="/downloads/機械手臂STL檔.rar">機械手臂STL檔</a></p>
+<p></p>
+<h4><strong>項目2 : 建立 CoppeliaSim 4.1.0 MTB robot 場景</strong></h4>
+<p><strong></strong></p>
+<p><strong>Google Drive:<a href="https://drive.google.com/file/d/1hd3-IRPUfPTAYn6B83Lpi2qIjtc0_W4p/view?usp=sharing">所有檔案</a></strong></p>
+<p><strong>以下是我「所有檔案」的檔案內容，有需要的同學們可以點下載參考。</strong></p>
+<p><strong><img alt="" height="256" src="/images/所有檔案.PNG" width="550"/></strong></p>
+<p><strong><img alt="" height="258" src="/images/0614-2.PNG" width="550"/></strong></p>
+<p><strong><img alt="" height="256" src="/images/40823209-2.PNG" width="550"/></strong></p>
+<p><strong>Leo檔:<a href="/downloads/鍵盤操作.rar">鍵盤操作</a></strong></p>
+<p><strong>可用鍵盤控制的程式的基本操作:</strong></p>
+<p><strong>方向鍵左-軸1左轉</strong></p>
+<p><strong>方向鍵右-軸1右轉</strong></p>
+<p><b>方向鍵上-軸2左轉</b></p>
+<p><b>方向鍵下-軸2右轉</b></p>
+<p><b>S-吸盤向下</b></p>
+<p><b>W-吸盤向上並吸取</b></p>
+<p><b>空白鍵-放下</b></p>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">function sysCall_init()
+    joint1=sim.getObjectHandle('joint1')
+    joint2=sim.getObjectHandle('joint2')
+    jointz=sim.getObjectHandle('jointz')
+    joint3=sim.getObjectHandle('joint3')
+    sim.setJointTargetPosition(joint1,0)
+    sim.setJointTargetPosition(joint2,0)
+    sim.setJointTargetPosition(joint3,0)
+    sim.setJointTargetPosition(jointz,0)
+    deg1=0
+    deg2=0
+    deg3=0
+end
+
+function sysCall_actuation()
+    message,auxiliaryData=sim.getSimulatorMessage()
+    while message~=-1 do
+        if (message==sim.message_keypress) then
+            if (auxiliaryData[1]==2009) then
+            deg1=deg1+1
+            deg3=deg2-deg1
+            sim.setJointTargetPosition(joint1,deg1*math.pi/180)
+            end
+            if (auxiliaryData[1]==2010) then
+            deg1=deg1-1
+            deg3=deg2-deg1
+            sim.setJointTargetPosition(joint1,deg1*math.pi/180)
+            end
+            if (auxiliaryData[1]==2007) then
+            deg2=deg2+1
+            deg3=deg1-deg2
+            sim.setJointTargetPosition(joint2,deg2*math.pi/180)
+            end
+            if (auxiliaryData[1]==2008) then
+            deg2=deg2-1
+            deg3=deg1-deg2
+            sim.setJointTargetPosition(joint2,deg2*math.pi/180)
+            end
+            if (auxiliaryData[1]==115) then
+                sim.setJointTargetPosition(jointz,-0.085)
+                sim.setIntegerSignal("pad_switch",1)
+            end
+            if (auxiliaryData[1]==119) then
+                sim.setJointTargetPosition(jointz,0)
+            end
+            if (auxiliaryData[1]==32) then
+                sim.setIntegerSignal("pad_switch",0)
+            end
+            sim.setJointTargetPosition(joint3,deg3*math.pi/180)
+        end
+    message,auxiliaryData=sim.getSimulatorMessage()
+    end
+end</pre>
+<p>-------------------------------------------------------------------------------------------</p>
+<p>以下是<span>參考老師提供的程式，藉由鍵盤按鍵操作機械手臂的轉向。</span></p>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">if (auxiliaryData[1]==114) then --r right turn in degree
+                    -- if key r pressed axis1 angle adds 5 degrees
+                     rotation1 = rotation1 + 5*deg
+                     sim.setJointPosition(axis1, rotation1)
+                end -- if r
+                if (auxiliaryData[1]==108) then --l left turn in degree
+                    -- if key l pressed axis1 angle substract 5 degrees
+                     rotation1 = rotation1 - 5*deg
+                     sim.setJointPosition(axis1, rotation1)
+                end -- if l
+                if (auxiliaryData[1]==100) then --d suction pad down
+                    -- if key d pressed axis3 will down 0.01 m plus calibration
+                     distance3 = distance3 + 0.01 + calibration
+                     sim.setJointPosition(axis3, distance3)
+                end -- if d
+                if (auxiliaryData[1]==117) then --u suction pad up
+                    -- if key u pressed axis3 will up 0.01 m minus calibration
+                    -- 吸盤往下升 1 公分加上校正值
+                     distance3 = distance3 - 0.01 - calibration
+                     sim.setJointPosition(axis3, distance3)
+                end -- if u</pre>
+<h4><strong>項目3 :<span> </span></strong><strong>手臂末端加入 components-gripper-suction pad 吸盤</strong></h4>
+<p><b>驅動程式參數:</b></p>
+<p>根據每個人所做的機械手臂大小不同，吸盤軸下降高度也會有所不同</p>
+<p>像是我 jointz 的參數改為-0.055m</p>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">function moving(x,y)
+    a=0.4
+    b=0.4
+    c=math.pow((math.pow(x,2)+math.pow(y,2)),0.5)
+    s=(a+b+c)/2
+    area=math.pow((s*(s-a)*(s-b)*(s-c)),0.5)
+    h=area/(2*c)
+    deg1_base=math.atan(x/y)
+    if x&lt;0 and y&lt;0 then
+        deg1_base=deg1_base+math.pi
+    end
+    deg1_tri=math.asin(h/a)
+    deg1=deg1_base+deg1_tri
+    deg2=math.pi-(0.5*math.pi-deg1_tri)-math.acos(h/b)
+    deg3=deg2-deg1
+    print(deg1)
+    sim.setJointTargetPosition(joint01,deg1)
+    sim.setJointTargetPosition(joint02,-deg2)
+    sim.setJointTargetPosition(joint03,deg3)
+end
+ 
+function sysCall_threadmain()
+    joint01=sim.getObjectHandle('joint1')
+    joint02=sim.getObjectHandle('joint2')
+    joint03=sim.getObjectHandle('joint3')
+    jointz=sim.getObjectHandle('jointz')
+    sim.setJointTargetPosition(joint01,0)
+    sim.setJointTargetPosition(joint02,0)
+    sim.setJointTargetPosition(joint03,0)
+    sim.setJointTargetPosition(jointz,0)
+    sim.setIntegerSignal("pad_switch",1)
+    sim.setJointTargetPosition(jointz,-0.085)
+    sim.wait(2)
+    sim.setJointTargetPosition(jointz,0)
+    while sim.getSimulationState()~=sim.simulation_advancing_abouttostopre do
+    moving(0.2,0.7)
+    sim.wait(2)
+    sim.setIntegerSignal("pad_switch",0)
+    sim.wait(2)
+    sim.setIntegerSignal("pad_switch",1)
+    sim.setJointTargetPosition(jointz,-0.085)
+    sim.wait(2)
+    sim.setJointTargetPosition(jointz,0)
+    sim.wait(2)
+    moving(-0.3,-0.55)
+    sim.wait(2)
+    sim.setIntegerSignal("pad_switch",0)
+    sim.wait(2)
+    sim.setIntegerSignal("pad_switch",1)
+    sim.setJointTargetPosition(jointz,-0.085)
+    sim.wait(2)
+    sim.setJointTargetPosition(jointz,0)
+    sim.wait(2)
+    end
+end</pre>
+<p>----------------------------------------------------------------------------------------------------</p>
+<p><span>以下是</span><span>參考同學40823214提供的程式</span></p>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false"> maxPullForce=sim.getScriptSimulationParameter(sim.handle_self,'maxPullForce')
+    maxShearForce=sim.getScriptSimulationParameter(sim.handle_self,'maxShearForce')
+    maxPeelTorque=sim.getScriptSimulationParameter(sim.handle_self,'maxPeelTorque')
+ 
+    sim.setLinkDummy(l,-1)
+    sim.setObjectParent(l,b,true)
+    m=sim.getObjectMatrix(l2,-1)
+    sim.setObjectMatrix(l,-1,m)
+end
+ 
+function sysCall_cleanup() 
+    --this is teach by 40823214
+    sim.setLinkDummy(l,-1)
+    sim.setObjectParent(l,b,true)
+    m=sim.getObjectMatrix(l2,-1)
+    sim.setObjectMatrix(l,-1,m)
+end
+ 
+function sysCall_sensing() 
+    parent=sim.getObjectParent(l)
+    --this is teach by 40823214
+    local sig=sim.getIntegerSignal("pad_switch")
+    if (not sig) or (sig==0) then
+        if (parent~=b) then
+            sim.setLinkDummy(l,-1)
+            sim.setObjectParent(l,b,true)
+            m=sim.getObjectMatrix(l2,-1)
+            sim.setObjectMatrix(l,-1,m)
+        end
+    else
+        if (parent==b) then
+            index=0
+            while true do
+                shape=sim.getObjects(index,sim.object_shape_type)
+                if (shape==-1) then
+                    break
+                end
+                local res,val=sim.getObjectInt32Parameter(shape,sim.shapeintparam_respondable)
+                if (shape~=b) and (val~=0) and (sim.checkProximitySensor(s,shape)==1) then
+                    -- Ok, we found a respondable shape that was detected
+                    -- We connect to that shape:
+                    -- Make sure the two dummies are initially coincident:
+                    sim.setObjectParent(l,b,true)
+                    m=sim.getObjectMatrix(l2,-1)
+                    sim.setObjectMatrix(l,-1,m)
+                    -- Do the connection:
+                    sim.setObjectParent(l,shape,true)
+                    sim.setLinkDummy(l,l2)
+                    break
+                end
+                index=index+1
+            end
+        else
+            -- Here we have an object attached
+            if (infiniteStrength==false) then
+                -- We might have to conditionally beak it apart!
+                result,force,torque=sim.readForceSensor(suctionPadLink) -- Here we read the median value out of 5 values (check the force sensor prop. dialog)
+                if (result&gt;0) then
+                    breakIt=false
+                    if (force[3]&gt;maxPullForce) then breakIt=true end
+                    sf=math.sqrt(force[1]*force[1]+force[2]*force[2])
+                    if (sf&gt;maxShearForce) then breakIt=true end
+                    if (torque[1]&gt;maxPeelTorque) then breakIt=true end
+                    if (torque[2]&gt;maxPeelTorque) then breakIt=true end
+                    if (breakIt) then
+                        -- We break the link:
+                        sim.setLinkDummy(l,-1)
+                        sim.setObjectParent(l,b,true)
+                        m=sim.getObjectMatrix(l2,-1)
+                        sim.setObjectMatrix(l,-1,m)
+                    end
+                end
+            end
+        end
+    end
+end</pre>
+<p><strong>項目4 : 逆向運算學函式</strong></p>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">function moving(x,y)
+    a=0.4
+    b=0.4
+    c=math.pow((math.pow(x,2)+math.pow(y,2)),0.5)
+    s=(a+b+c)/2
+    area=math.pow((s*(s-a)*(s-b)*(s-c)),0.5)
+    h=area/(2*c)
+    deg1_base=math.atan(x/y)
+    if x&lt;0 and y&lt;0 then
+        deg1_base=deg1_base+math.pi
+    end
+    deg1_tri=math.asin(h/a)
+    deg1=deg1_base+deg1_tri
+    deg2=math.pi-(0.5*math.pi-deg1_tri)-math.acos(h/b)
+    deg3=deg2-deg1
+    print(deg1)
+    sim.setJointTargetPosition(joint01,deg1)
+    sim.setJointTargetPosition(joint02,-deg2)
+    sim.setJointTargetPosition(joint03,deg3)
+end
+
+function sysCall_threadmain()
+    joint01=sim.getObjectHandle('joint1')
+    joint02=sim.getObjectHandle('joint2')
+    joint03=sim.getObjectHandle('joint3')
+    jointz=sim.getObjectHandle('jointz')
+    sim.setJointTargetPosition(joint01,0)
+    sim.setJointTargetPosition(joint02,0)
+    sim.setJointTargetPosition(joint03,0)
+    sim.setJointTargetPosition(jointz,0)
+    sim.setIntegerSignal("pad_switch",1)
+    sim.setJointTargetPosition(jointz,-0.055)
+    sim.wait(3)
+    sim.setJointTargetPosition(jointz,0)
+    while sim.getSimulationState()~=sim.simulation_advancing_abouttostopre do
+    moving(0.2,0.7)
+    sim.wait(3)
+    sim.setIntegerSignal("pad_switch",0)
+    sim.wait(3)
+    sim.setIntegerSignal("pad_switch",1)
+    sim.setJointTargetPosition(jointz,-0.055)
+    sim.wait(3)
+    sim.setJointTargetPosition(jointz,0)
+    sim.wait(3)
+    moving(-0.3,-0.55)
+    sim.wait(3)
+    sim.setIntegerSignal("pad_switch",0)
+    sim.wait(3)
+    sim.setIntegerSignal("pad_switch",1)
+    sim.setJointTargetPosition(jointz,-0.055)
+    sim.wait(3)
+    sim.setJointTargetPosition(jointz,0)
+    sim.wait(3)
+    end
+end</pre>
+<p><strong>項目5 : Python remote API 逆向運動學函式</strong><br/><strong></strong></p>
+<p><strong></strong></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import sim as vrep
+import math
+import random
+import time
+import math
+
+def moving(x,y):
+    a=0.4
+    b=0.4
+    c=math.pow((math.pow(x,2)+math.pow(y,2)),0.5)
+    s=(a+b+c)/2
+    area=math.pow((s*(s-a)*(s-b)*(s-c)),0.5)
+    h=area/(2*c)
+    deg1_base=math.atan(x/y)
+    if x&lt;0 and y&lt;0 :
+        deg_base1=deg1_base+math.pi
+    
+    deg1_tri=math.asin(h/a)
+    deg1=deg1_base+deg1_tri
+    deg2=math.pi-(0.5*math.pi-deg1_tri)-math.acos(h/b)
+    deg3=deg2-deg1
+    vrep.simxSetJointTargetPosition(clientID,joint01,deg1,opmode)
+    vrep.simxSetJointTargetPosition(clientID,joint02,-deg2,opmode)
+    vrep.simxSetJointTargetPosition(clientID,joint03,deg3,opmode)
+
+print ('Start')
+ 
+vrep.simxFinish(-1)
+ 
+clientID = vrep.simxStart('127.0.0.1', 19997, True, True, 5000, 5)
+
+if clientID != -1:
+    print ('Connected to remote API server')
+
+    res = vrep.simxAddStatusbarMessage(
+        clientID, "This is teach by 40823214 ",
+        vrep.simx_opmode_oneshot)
+    if res not in (vrep.simx_return_ok, vrep.simx_return_novalue_flag):
+        print("Could not add a message to the status bar.")
+
+
+    opmode = vrep.simx_opmode_oneshot_wait
+    STREAMING = vrep.simx_opmode_streaming
+
+
+    vrep.simxStartSimulation(clientID, opmode)
+    ret,joint01=vrep.simxGetObjectHandle(clientID,"joint1",opmode)
+    ret,joint02=vrep.simxGetObjectHandle(clientID,"joint2",opmode)
+    ret,joint03=vrep.simxGetObjectHandle(clientID,"joint3",opmode)
+    ret,jointz=vrep.simxGetObjectHandle(clientID,"jointz",opmode)
+    
+    vrep.simxSetJointTargetPosition(clientID,joint01,0,opmode)
+    vrep.simxSetJointTargetPosition(clientID,joint02,0,opmode)
+    vrep.simxSetJointTargetPosition(clientID,joint03,0,opmode)
+    vrep.simxSetIntegerSignal(clientID,"pad_switch",1,opmode)
+    vrep.simxSetJointTargetPosition(clientID,jointz,-0.055,opmode)
+    time.sleep(2)
+    vrep.simxSetJointTargetPosition(clientID,jointz,0,opmode)
+    
+    while True:
+        moving(0.2,0.7)
+        time.sleep(2)
+        vrep.simxSetIntegerSignal(clientID,"pad_switch",0,opmode)
+        time.sleep(2)
+        vrep.simxSetIntegerSignal(clientID,"pad_switch",1,opmode)
+        vrep.simxSetJointTargetPosition(clientID,jointz,-0.055,opmode)
+        time.sleep(2)
+        vrep.simxSetJointTargetPosition(clientID,jointz,0,opmode)
+        moving(-0.3,-0.6)
+        time.sleep(2)
+        vrep.simxSetIntegerSignal(clientID,"pad_switch",0,opmode)
+        time.sleep(2)
+        vrep.simxSetIntegerSignal(clientID,"pad_switch",1,opmode)
+        vrep.simxSetJointTargetPosition(clientID,jointz,-0.055,opmode)
+        time.sleep(2)
+        vrep.simxSetJointTargetPosition(clientID,jointz,0,opmode)
+            
+            </pre>
+<h4>心得:</h4>
+<p><strong></strong></p>
+<p><span>以我這位初學者的角度出發，這條路真的難上加難，寫程式時常常遇到挫折，同時要學會Onshape、Coppeliasim確實不簡單，不過這一路上特別感謝40823214這位同學，他又讓我重新振作起來，他也常利用課後時間教導我們班上的同學，而且有問必有答，教學上還不吝嗇，他也會將它教學影片放上Youtube讓我們可以自行學習，在此特別感謝他，最後我也確實在這門課學習到很多知識，也期望後續能利用這門所學的技能，在未來社會中學以致用。</span></p>
+<p></p>
+<p><strong></strong><strong>40823214的30人協同的教學影片，當時我也有參與其中，以下共有3部影片</strong></p>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/GUUKSgN93eI" title="YouTube video player" width="560"></iframe></p>
+<p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/gZd9KlVS9BI" width="560"></iframe></p>
+<p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/Zu_0BvZfxgQ" width="560"></iframe></p>
+<p>-----------------------------------------------------------------------------------------------------</p>
+<p>以下我再次統總所有載點，供有需要下載的人</p>
+<p><span>項目1-</span><a href="/downloads/機械手臂STL檔.rar">機械手臂3D檔(STL檔)</a></p>
+<p>項目2-<a href="/downloads/鍵盤操作.rar">鍵盤操作(lua程式)</a></p>
+<p><span>項目3-<a href="/downloads/吸盤程式.rar">吸盤程式(txt檔)</a></span></p>
+<p><span>項目4-<a href="/downloads/軟體內部程式.rar">軟體內運作(lua程式)</a></span></p>
+<p><span>項目5-<a href="/downloads/python remote API-2.rar">Python remote API 驅動(PY程式)</a></span></p>
+<p><a href="/downloads/所有程式.rar">所有程式</a></p>
